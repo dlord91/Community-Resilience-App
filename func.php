@@ -16,11 +16,13 @@ function head($title){
 }
 
 
-function nav($link){
+function nav($home){
 	?>
 	
 	<div id="topNav">
-	<a href="<?php echo $link; ?>">Back</a>
+	<?php if($home == true){?>
+	<a href="index.php">Back</a>
+	<?php } ?>
 	<a href="PersonalDetails.php">
 		<img src="img/account.png" alt="account" width="46" height="46" />
 	</a>
@@ -59,6 +61,16 @@ function emergency($area){
 							
 				}
 	}
+
+
+	function getField($field){
+			$query = "SELECT id FROM `userTable`";
+			
+			
+			if($query_run = mysql_result(mysql_query($query), 0, $field)){
+					return $query_run;
+			}
+		}
 
 
 
