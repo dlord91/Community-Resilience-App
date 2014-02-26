@@ -1,7 +1,7 @@
 <?php
 
  include_once'func.php';
-
+ include_once'database_connect.php';
 
 
 head('Main Menu');
@@ -17,14 +17,22 @@ head('Main Menu');
 
 <?php
 
-nav('index.php');
+/*nav(false);*/
 
 ?>
 
 
 
 <div id="wrap">
-
+	
+	
+	<?php 
+			  
+		
+		
+	
+	if(1 <= getField('id')){ ?>
+	
 	<h1>Community Resilience</h1>
 
 	<div id="nav-menu">
@@ -32,11 +40,179 @@ nav('index.php');
 			<li><a href="SOS.php" title="SOS">SOS</a></li></ul>
 			<li><a href="EmergencyInfo.php" title="Emergency Info">Emergency Information</a></li>
 			<li><a href="area.php" title="Local Residents">People in Your Area</a></li>
-			<li><a href="LocalAuthorities.php" title="Local Authorities">Local Authorities</a></li>
+			<li><a href="localAuthorities.php" title="Local Authorities">Local Authorities</a></li>
 			<li><a href="HelloWorld.php" title="Local Map">Local Map</a></li>
 		
 	</div><!--nav_menu-->
-</div><!--centre-->
+	
+	
+	<?php }else{?>
+	
+		
+		
+		<?php
+		
+		$name = $_POST['name'];
+		$number = $_POST['number'];
+		$area = $_POST['area'];
+		$address = $_POST['address'];
+		$description = $_POST['description'];
+		
+		$name1 = $_POST['name1'];
+		$number1 = $_POST['number1'];
+		
+		$name2 = $_POST['name2'];
+		$number2 = $_POST['number2'];
+		
+		$name3 = $_POST['name3'];
+		$number3 = $_POST['number3'];
+		
+		if (isset($name) && !empty($name) &&
+			isset($number) && !empty($number) &&
+			isset($area) && !empty($area) &&
+			isset($address) && !empty($address) &&
+			isset($description) && !empty($description) &&
+			isset($name1) && !empty($name1) &&
+			isset($number1) && !empty($number1) &&
+			isset($name2) && !empty($name2) &&
+			isset($number2) && !empty($number2) &&
+			isset($name3) && !empty($name3) &&
+			isset($number3) && !empty($number3)
+		){
+		
+		
+			if(isset($name1) && !empty($name1) &&
+			isset($number1) && !empty($number1) &&
+			isset($name2) && !empty($name2) &&
+			isset($number2) && !empty($number2) &&
+			isset($name3) && !empty($name3) &&
+			isset($number3) && !empty($number3)){
+				
+				$con1 = array($name1);
+				$con1 = array($number1);
+				$contact1 = implode(', ',$con1);
+				
+				$con2 = array($name2);
+				$con2 = array($number2);
+				$contact2 = implode(', ',$con2);
+				
+				$con3 = array($name3);
+				$con3 = array($number3);
+				$contact3 = implode(', ',$con3);
+				
+			}
+		
+		
+		
+		
+		$query = "INSERT INTO `userTable` VALUES (
+		
+		'',
+		'".mysql_real_escape_string($name)."',
+		'".mysql_real_escape_string($number)."',
+		'".mysql_real_escape_string($area)."',
+		'".mysql_real_escape_string($address)."',
+		'".mysql_real_escape_string($details)."',
+		'".mysql_real_escape_string($contact1)."',
+		'".mysql_real_escape_string($contact2)."',
+		'".mysql_real_escape_string($contact3)."'
+		)";
+		
+			if($query_run = mysql_query($query)){
+				echo"information submitted";
+				 header ("location:index.php");
+			}else{
+				echo"nope";
+			}
+		
+		
+		
+		}else{
+			echo'All fields are required';
+		}
+		
+		
+		
+		?>
+	
+	
+	
+	<form action="" method="post"  autocomplete="off">
+	
+								<label  for="name"><p>Full Name</p></label>
+				              	<input name="name" type="text" placeholder="David Lordan"/>	
+				              	
+				              	<label  for="number"><p>Phone Number</p></label>
+				              	<input name="number" type="text" placeholder="Number"/>	
+							  	
+							  								  	
+							  	<label for="description"><p>Address<p></label>
+							  	
+							  	<select name="area">
+								  <option value="Antrim">Antrim</option>
+								  <option value="Armagh">Armagh</option>
+								  <option value="Carlow">Carlow</option>
+								  <option value="Cavan">Cavan</option>
+								  <option value="Clare">Clare</option>
+								  <option value="Cork">Cork</option>
+								  <option value="Derry">Derry</option>
+								  <option value="Donegal">Donegal</option>
+								  <option value="Down">Down</option>
+								  <option value="Dublin">Dublin</option>
+								  <option value="Fermanagh">Fermanagh</option>
+								  <option value="Galway">Galway</option>
+								  <option value="Kerry">Kerry</option>
+								  <option value="Kildare">Kildare</option>
+								  <option value="Kilkenny">Kilkenny</option>
+								  <option value="Laois">Laois</option>
+								  <option value="Leitrim">Leitrim</option>
+								  <option value="Limerick">Limerick</option>
+								  <option value="Longford">Longford</option>
+								  <option value="Louth">Louth</option>
+								  <option value="Mayo">Mayo</option>
+								  <option value="Meath">Meath</option>
+								  <option value="Monaghan">Monaghan</option>
+								  <option value="Offaly">Offaly</option>
+								  <option value="Roscommon">Roscommon</option>
+								  <option value="Sligo">Sligo</option>
+								  <option value="Tipperary">Tipperary</option>
+								  <option value="Tyrone">Tyrone</option>
+								  <option value="Waterford">Waterford</option>
+								  <option value="Westmeath">Westmeath</option>
+								  <option value="Wexford">Wexford</option>
+								  <option value="Wicklow">Wicklow</option>
+								</select>
+
+                                <textarea name="address" placeholder="Address" type="text"></textarea>
+                                
+                                
+                                <label for="description"><p>Important Personal Details<p></label>
+                                <textarea name="description" placeholder="Description" type="text"></textarea>
+                                
+                                
+                               <label  for="name1"><p>Contact 1</p></label>
+				              	<input name="name1" type="text" placeholder="Full Name"/>	
+				              	<input name="number1" type="text" placeholder="Number"/>	 
+                                
+                                
+                               <label  for="name2"><p>Contact 2</p></label>
+				              	<input name="name2" type="text" placeholder="Full Name"/>	
+				              	<input name="number2" type="text" placeholder="Number"/>	
+				              	
+				              	
+				              <label  for="name3"><p>Contact 3</p></label>
+				              	<input name="name3" type="text" placeholder="Full Name"/>	
+				              	<input name="number3" type="text" placeholder="Number"/>	
+				              	
+				              	<input class="btn" type="submit" value="Submit Details" />
+				              	
+				       </form>       	
+				              	 
+                                
+	
+	<?php } ?>
+	
+</div><!--wrap-->
 
 
 </body>
